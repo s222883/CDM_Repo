@@ -1,2 +1,6 @@
 import sage
-print("hola dani")
+# Extended Euclidean Algorithm
+def EEA(p1, p2):
+    R.<x> = PolynomialRing(QQ)
+    rho = p1.leading_coefficient()
+    
