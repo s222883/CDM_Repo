@@ -54,6 +54,7 @@ def EEA(p1, p2, typ = 'pol'):
     print(f'gcd(p1,p2) = {r0} = ({s0})({p1}) + ({t0}) ({p2})')
     print('------------------------------------------------')
     return l, rho0, r0, s0, t0
+#   gcd(p1,p2)=s0*p1+t0*p2
 
 if __name__ == '__main__': 
     #R.<x> = PolynomialRing(QQ)
