@@ -1,7 +1,7 @@
 import sage.all
 import numpy as np
 # Extended Euclidean Algorithm
-def EEA(p1, p2, typ = 'pol'):
+def EEA(p1, p2, field, typ = 'pol' ):
     """Compute the 
     Args:
         p1 (_type_): pol1
@@ -17,7 +17,7 @@ def EEA(p1, p2, typ = 'pol'):
         r0 = p1; r1 = p2
         
     s0 = 1/rho0; s1 = 0; t0 = 0; t1 = 1/rho1
-    i = 0
+    i = 1
     while (r1!=0):
         if typ == 'pol':
             q, rem = r0.quo_rem(r1)
@@ -32,18 +32,33 @@ def EEA(p1, p2, typ = 'pol'):
             gaussian_quo = lambda a,b : ZI(real(a/b).round() + I*imag(a/b).round())
             gaussian_rem = lambda a,b: a - gaussian_quo(a,b)*b
             q = gaussian_quo(r0,r1)
-            rem = gaussian_rem(r0,r1)
+            print('r0=',r0)
+            print('r1=',r1)
+            print('q=',q)
 
+            rem = gaussian_rem(r0,r1)
+        print('-----------')
+        print('i =', i)
+        print('-----------')
         print(f'q_{i} = {q}')
-        rho0 = rho1; r0 = rem/ rho1; temp = r1
-        r1 = r0; r0 = temp
+        rho0 = rho1; 
+        r0 = rem/ rho1
+        print(f'r_{i+1} = {r0}')
+        temp = r1
+        r1 = r0
+        r0 = temp
         s0 = (s0 - q*s1)/ rho1
+        print(f's_{i+1} = {s0}')
         temp = s1
         s1 = s0; s0 = temp
         t0 = (t0 - q*t1)/ rho1
+        print(f't_{i+1} = {t0}')
         temp = t1
         t1 = t0; t0 = temp
         i+=1
+    print('-----------')
+    print('RESULTS:')
+    print('-----------')
     l = i-1
     print(f'l = {l}')
     print(f'rho = {rho0}')
@@ -51,25 +66,25 @@ def EEA(p1, p2, typ = 'pol'):
     print(f's = {s0}')
     print(f't = {t0}')
     print('------------------------------------------------')
-    print(f'gcd(p1,p2) = {r0} = ({s0})({p1}) + ({t0}) ({p2})')
+    print(f'gcd(p1,p2) = {r0} =({s0})p1 + ({t0}) p2= ({s0})({p1}) + ({t0}) ({p2})')
     print('------------------------------------------------')
     return l, rho0, r0, s0, t0
 #   gcd(p1,p2)=s0*p1+t0*p2
 
 if __name__ == '__main__': 
     #R.<x> = PolynomialRing(QQ)
-    R.<x> = PolynomialRing(Integers(5))
-    p1 =  x^3 - x + 2 #Integer(126) # 18 *x^3 - 42*x^2 + 30*x - 6
-    p2 =  x^2 #Integer(35) #-12 *x^2 + 10*x - 2
-    l, rho0, r0, s0, t0 = EEA(p1, p2, 'pol')
+    # R.<x> = PolynomialRing(Integers(5))
+    # p1 =  x^3 - x + 2 #Integer(126) # 18 *x^3 - 42*x^2 + 30*x - 6
+    # p2 =  x^2 #Integer(35) #-12 *x^2 + 10*x - 2
+    # l, rho0, r0, s0, t0 = EEA(p1, p2, 'pol')
     
     # Complex
     ZI = QuadraticField(-1, 'I').ring_of_integers()
     p1 = ZI(7 + 8*I)
     p2 = ZI(2 + 3*I)
-    l, rho0, r0, s0, t0 = EEA(p1, p2, 'complex')
+    l, rho0, r0, s0, t0 = EEA(p1, p2, field = ZI, typ = 'complex')
 
     # Equation
-    p1 = 17
-    p2 = 1000
-    EEA(p1, p2, 'complex')
+    # p1 = 17
+    # p2 = 1000
+    # EEA(p1, p2, 'complex')

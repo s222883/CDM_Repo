@@ -101,6 +101,7 @@ if __name__ == '__main__':
         print("x == {} (mod {})".format(r,m))
     solution = chinese_remainder(remainders, modules)
     print("A solution of the system is {}".format(solution))
+
     # EXAMPLE ON Z[i]
     ZI = QuadraticField(-1, 'I').ring_of_integers()
     gaussian_quo = lambda a,b : ZI(real(a/b).round() + I*imag(a/b).round())
@@ -116,10 +117,11 @@ if __name__ == '__main__':
     for r, m in zip(remainders, modules):
         print(gaussian_rem(solution, m) / r)
         assert(gaussian_rem(solution - r, m) == 0)
+
     # EXAMPLE ON Z[x]
-    Z.<x> = PolynomialRing(Integers(5))
-    remainders = [1,2,4]
-    modules = [x, (x-1), (x-2)]
+    Z.<x> = PolynomialRing(Integers(3))
+    remainders = [x^3/(x^2+x+1)]
+    modules = [x^4 + x + 1]
     print("System to be solved:")
     for r,m in zip(remainders, modules):
         print("x == {} (mod {})".format(r,m))

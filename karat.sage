@@ -1,8 +1,6 @@
-
-
 def karat(n,f,g):
 	# n has to be power of 2
-	# f and g are a list of coefficient of polynomials of length n
+	# f and g are a list of coefficient of polynomials of length n (starting with the lower exponent)
 	if len(f)!=n and len(g)!=n:
 		raise TypeError("f and g have to be list of length n = "+str(n))
 	elif n==1:
