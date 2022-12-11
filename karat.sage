@@ -1,4 +1,24 @@
-
+def print_pol(l,bef=""):
+	n=len(l)
+	s=bef+" "
+	for i in range(n-1,1,-1):
+		if l[i-1]<0:
+			ss=" - "
+		else:
+			ss=" + "
+		if i!=n-1:
+			s+=str(abs(l[i]))+"x^"+str(i)+ss
+		else:
+			s+=str(l[i])+"x^"+str(i)+ss
+	if n>1:
+		if l[0]<0:
+			ss="x - "
+		else:
+			ss="x + "
+		s+=str(abs(l[1]))+ss+str(abs(l[0]))
+	else:
+		s+=str(l[0])
+	print(s)
 
 def karat(n,f,g,l=0,flag="Initial"):
 	# n has to be power of 2
@@ -23,12 +43,12 @@ def karat(n,f,g,l=0,flag="Initial"):
 			ff1[i]=f[i]+f[i+k]
 			gg1[i]=g[i]+g[i+k]
 		print(l,flag)
-		print("f0 = ",f0)
-		print("f1 = ",f1)
-		print("g0 = ",g0)
-		print("g1 = ",g1)
-		print("f0 + f1 = ",ff1)
-		print("g0 + g1 = ",gg1)
+		print_pol(f0,"f0 =")
+		print_pol(f1,"f1 =")
+		print_pol(g0,"g0 =")
+		print_pol(g1,"g1 =")
+		print_pol(ff1,"f0 + f1 =")
+		print_pol(gg1,"g0 +g1 =")
 		print("-----------------")
 		z=karat(k,f0,g0,l=l+1,flag="f0g0")
 		w=karat(k,f1,g1,l=l+1,flag="f1g1")
