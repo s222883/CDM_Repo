@@ -66,25 +66,26 @@ def EEA(p1, p2, field, typ = 'pol' ):
     print(f's = {s0}')
     print(f't = {t0}')
     print('------------------------------------------------')
-    print(f'gcd(p1,p2) = {r0} =({s0})p1 + ({t0}) p2= ({s0})({p1}) + ({t0}) ({p2})')
+    print(f'gcd(p1,p2) = {r0} = ({s0})p1 + ({t0})p2 = ({s0})({p1}) + ({t0}) ({p2})')
     print('------------------------------------------------')
     return l, rho0, r0, s0, t0
 #   gcd(p1,p2)=s0*p1+t0*p2
 
 if __name__ == '__main__': 
     #R.<x> = PolynomialRing(QQ)
-    # R.<x> = PolynomialRing(Integers(5))
-    # p1 =  x^3 - x + 2 #Integer(126) # 18 *x^3 - 42*x^2 + 30*x - 6
-    # p2 =  x^2 #Integer(35) #-12 *x^2 + 10*x - 2
-    # l, rho0, r0, s0, t0 = EEA(p1, p2, 'pol')
+    R.<x> = PolynomialRing(Integers(5))
+    p1 =  x^3 - x + 2 #Integer(126) # 18 *x^3 - 42*x^2 + 30*x - 6
+    p2 =  x^2 #Integer(35) #-12 *x^2 + 10*x - 2
+    l, rho0, r0, s0, t0 = EEA(p1, p2, 'pol')
     
     # Complex
-    ZI = QuadraticField(-1, 'I').ring_of_integers()
-    p1 = ZI(7 + 8*I)
-    p2 = ZI(2 + 3*I)
-    l, rho0, r0, s0, t0 = EEA(p1, p2, field = ZI, typ = 'complex')
+    # ZI = QuadraticField(-1, 'I').ring_of_integers()
+    # p1 = ZI(7 + 8*I)
+    # p2 = ZI(2 + 3*I)
+    # l, rho0, r0, s0, t0 = EEA(p1, p2, field = ZI, typ = 'complex')
 
     # Equation
-    # p1 = 17
-    # p2 = 1000
-    # EEA(p1, p2, 'complex')
+    # When is a gcd(int, int) typ = 'complex' (little fix)
+    #p1 = 17
+    #p2 = 1000
+    #EEA(p1, p2, typ ='complex', field = ZZ)
