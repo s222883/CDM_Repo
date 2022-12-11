@@ -1,6 +1,8 @@
-def karat(n,f,g):
+
+
+def karat(n,f,g,l=0,flag="Initial"):
 	# n has to be power of 2
-	# f and g are a list of coefficient of polynomials of length n (starting with the lower exponent)
+	# f and g are a list of coefficient of polynomials of length n
 	if len(f)!=n and len(g)!=n:
 		raise TypeError("f and g have to be list of length n = "+str(n))
 	elif n==1:
@@ -20,10 +22,18 @@ def karat(n,f,g):
 			g1[i]=g[i+k]
 			ff1[i]=f[i]+f[i+k]
 			gg1[i]=g[i]+g[i+k]
-		z=karat(k,f0,g0)
-		w=karat(k,f1,g1)
-		y=karat(k,ff1,gg1)
-		ans=[0]*(2*n)
+		print(l,flag)
+		print("f0 = ",f0)
+		print("f1 = ",f1)
+		print("g0 = ",g0)
+		print("g1 = ",g1)
+		print("f0 + f1 = ",ff1)
+		print("g0 + g1 = ",gg1)
+		print("-----------------")
+		z=karat(k,f0,g0,l=l+1,flag="f0g0")
+		w=karat(k,f1,g1,l=l+1,flag="f1g1")
+		y=karat(k,ff1,gg1,l=l+1,flag="(f0+g0)(f1+g1)")
+		ans=[0]*(2*n-1)
 		for i in range(len(w)):
 			ans[i+n]+=w[i]
 			ans[i+k]+=y[i]-z[i]-w[i]
